@@ -20,7 +20,7 @@ import '../../screens/bendahara/buat_iuran_screen.dart';
 import '../../screens/bendahara/kas_screen.dart';
 import '../../screens/bendahara/catat_transaksi_screen.dart';
 import '../../screens/bendahara/daftar_siswa_screen.dart';
-import '../../screens/bendahara/qris_settings_screen.dart';
+
 
 final routerProvider = Provider<GoRouter>((ref) {
   ref.watch(authStateProvider);
@@ -143,10 +143,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/bendahara/siswa',
         builder: (context, state) => const DaftarSiswaScreen(),
       ),
-      GoRoute(
-        path: '/bendahara/qris',
-        builder: (context, state) => const QrisSettingsScreen(),
-      ),
+
     ],
   );
 });

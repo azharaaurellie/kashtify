@@ -8,7 +8,8 @@ class KasService {
   Future<KasSummaryModel?> getKasSummary() async {
     final data = await _supabase.from('kas_summary').select().maybeSingle();
     if (data == null) {
-      return const KasSummaryModel(totalPemasukan: 0, totalPengeluaran: 0, saldo: 0);
+      return const KasSummaryModel(
+          totalPemasukan: 0, totalPengeluaran: 0, saldo: 0);
     }
     return KasSummaryModel.fromMap(data);
   }
@@ -16,7 +17,10 @@ class KasService {
   Future<List<TransactionModel>> getTransactions() async {
     final data = await _supabase
         .from('transactions')
-        .select('*, profiles(full_name)')
+        .select('''
+          *,
+          profiles(full_name)
+        ''')
         .order('date', ascending: false);
     return (data as List)
         .map((item) => TransactionModel.fromMap(item as Map<String, dynamic>))
@@ -32,7 +36,10 @@ class KasService {
 
     final data = await _supabase
         .from('transactions')
-        .select('*, profiles(full_name)')
+        .select('''
+          *,
+          profiles(full_name)
+        ''')
         .gte('date', startStr)
         .lte('date', endStr)
         .order('date', ascending: false);

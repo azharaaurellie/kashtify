@@ -173,28 +173,14 @@ class BendaharaHomeScreen extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _ActionCard(
-                            icon: Icons.post_add,
-                            label: 'Buat Tagihan',
-                            color: const Color(0xFF4299E1),
-                            onTap: () => context.push('/bendahara/buat-iuran'),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _ActionCard(
-                            icon: Icons.qr_code_2,
-                            label: 'Atur QRIS',
-                            color: const Color(0xFF48BB78),
-                            onTap: () => context.push('/bendahara/qris'),
-                          ),
-                        ),
-                      ],
+                    _ActionCard(
+                      icon: Icons.post_add,
+                      label: 'Buat Tagihan',
+                      color: const Color(0xFF4299E1),
+                      isHorizontal: true,
+                      onTap: () => context.push('/bendahara/buat-iuran'),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 12),
                     _ActionCard(
                       icon: Icons.add_card,
                       label: 'Catat Transaksi',

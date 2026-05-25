@@ -27,18 +27,33 @@ class FundRequestModel {
 
   factory FundRequestModel.fromMap(Map<String, dynamic> map) {
     final profiles = map['profiles'] as Map<String, dynamic>?;
+    
+    final requestedBy = map['student_id'] as String? ?? map['requested_by'] as String? ?? '';
+    
+    final description = map['description'] as String? ?? '';
+    String title = map['title'] as String? ?? '';
+    String reason = map['reason'] as String? ?? '';
+    
+    if (description.isNotEmpty && title.isEmpty) {
+      final parts = description.split('\n\nAlasan: ');
+      title = parts.isNotEmpty ? parts[0] : description;
+      if (parts.length > 1) {
+        reason = parts[1];
+      }
+    }
+
     return FundRequestModel(
       id: map['id'] as String,
-      requestedBy: map['requested_by'] as String,
-      title: map['title'] as String? ?? '',
-      amount: (map['amount'] as num).toInt(),
-      reason: map['reason'] as String? ?? '',
+      requestedBy: requestedBy,
+      title: title,
+      amount: (map['amount'] as num?)?.toInt() ?? 0,
+      reason: reason,
       status: map['status'] as String? ?? 'pending',
-      reviewedBy: map['reviewed_by'] as String?,
-      reviewedAt: map['reviewed_at'] != null
-          ? DateTime.tryParse(map['reviewed_at'] as String)
-          : null,
-      createdAt: DateTime.parse(map['created_at'] as String),
+      reviewedBy: map['resolved_by'] as String? ?? map['reviewed_by'] as String?,
+      reviewedAt: map['resolved_at'] != null
+          ? DateTime.tryParse(map['resolved_at'] as String)
+          : (map['reviewed_at'] != null ? DateTime.tryParse(map['reviewed_at'] as String) : null),
+      createdAt: map['created_at'] != null ? DateTime.parse(map['created_at'] as String) : DateTime.now(),
       requesterName: profiles?['full_name'] as String?,
       requesterNis: profiles?['nis'] as String?,
     );

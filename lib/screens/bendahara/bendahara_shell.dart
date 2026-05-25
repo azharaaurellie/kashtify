@@ -10,7 +10,8 @@ class BendaharaShell extends StatelessWidget {
     final location = GoRouterState.of(context).matchedLocation;
     if (location.startsWith('/bendahara/iuran')) return 1;
     if (location.startsWith('/bendahara/kas')) return 2;
-    if (location.startsWith('/profile')) return 3;
+    if (location.startsWith('/bendahara/verifikasi')) return 3;
+    if (location.startsWith('/profile')) return 4;
     return 0;
   }
 
@@ -19,6 +20,7 @@ class BendaharaShell extends StatelessWidget {
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex(context),
         onTap: (index) {
           switch (index) {
@@ -32,6 +34,9 @@ class BendaharaShell extends StatelessWidget {
               context.go('/bendahara/kas');
               break;
             case 3:
+              context.go('/bendahara/verifikasi');
+              break;
+            case 4:
               context.go('/profile');
               break;
           }
@@ -51,6 +56,11 @@ class BendaharaShell extends StatelessWidget {
             icon: Icon(Icons.account_balance_outlined),
             activeIcon: Icon(Icons.account_balance),
             label: 'Kas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fact_check_outlined),
+            activeIcon: Icon(Icons.fact_check),
+            label: 'Verifikasi',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outlined),

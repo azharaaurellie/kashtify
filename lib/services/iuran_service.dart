@@ -69,7 +69,7 @@ class IuranService {
   Future<List<IuranPaymentModel>> getPendingVerifikasi() async {
     final data = await _supabase
         .from('iuran_payments')
-        .select('*, siswa:profiles!iuran_payments_siswa_id_fkey(full_name, nis), iuran(title, amount)')
+        .select('*, siswa:profiles!siswa_id(full_name, nis), iuran(title, amount)')
         .eq('notes', 'menunggu_konfirmasi')
         .neq('status', 'lunas');
     return (data as List)
